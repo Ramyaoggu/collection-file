@@ -1,0 +1,224 @@
+{
+	"info": {
+		"_postman_id": "daa5024e-8086-4a0b-b197-38edfd778b16",
+		"name": "onlinestoreapi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "41986776"
+	},
+	"item": [
+		{
+			"name": "getallproducts",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"\r",
+							"const jsonresponse=pm.response.json();\r",
+							"pm.test(\"status code is 200\",function(){\r",
+							"pm.response.to.have.status(200);\r",
+							"});\r",
+							"pm.test(\"response is an array no empty\",function(){\r",
+							"pm.expect(jsonresponse).to.be.a('array').not.be.empty\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}products",
+					"host": [
+						"{{base-url}}products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "singleproduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}products/categories",
+					"host": [
+						"{{base-url}}products"
+					],
+					"path": [
+						"categories"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "singleproduct",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}products/1",
+					"host": [
+						"{{base-url}}products"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "catjewellery",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}products/category/jewelery",
+					"host": [
+						"{{base-url}}products"
+					],
+					"path": [
+						"category",
+						"jewelery"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "products",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"title\":\"test product\",\r\n   \"price\":13.5,\r\n   \"description\":\"lorem ipsum set \",\r\n   \"category\":\"electronics\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}products",
+					"host": [
+						"{{base-url}}products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "patchreq",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const jsonData = pm.response.json();\r",
+							"pm.collectionVariables.set(\"id\", jsonData.id);\r",
+							"\r",
+							"pm.test(\"Content type header is application/json\", () => {\r",
+							"    pm.expect(pm.response.headers.get('application/json'));\r",
+							"    \r",
+							"});\r",
+							"pm.test(\"content type is present\",()=>{\r",
+							"pm.expect(pm.response.headers.get('content=length'));\r",
+							"});\r",
+							"pm.test(\"coonection in headers is keep alive\",()=>{\r",
+							"pm.expect(pm.response.headers.get('keep-alive'));\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n   \"title\":\"test jewellery\",\r\n   \"price\":20,\r\n   \"description\":\"lorem ipsum set \",\r\n   \"category\":\"jewelery\"\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base-url}}products/1",
+					"host": [
+						"{{base-url}}products"
+					],
+					"path": [
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getmobile",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base-url}}products/category?type=mobile",
+					"host": [
+						"{{base-url}}products"
+					],
+					"path": [
+						"category"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "mobile"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base-url",
+			"value": "https://fakestoreapi.com/",
+			"type": "string"
+		},
+		{
+			"key": "id",
+			"value": ""
+		}
+	]
+}
